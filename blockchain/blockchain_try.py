@@ -56,7 +56,7 @@ class Blockchain:
         return True
 
     def is_valid_block(self, block: Block) -> bool:
-        return to_sha256(f"{block.previous_hash}_{block.value}") != block.current_hash
+        return to_sha256(f"{block.previous_hash}_{block.value}") == block.current_hash
 
     def to_string(self) -> str:
         ret = ""
@@ -71,20 +71,26 @@ class Blockchain:
     
 
 if __name__ == '__main__':
+    # Create empty blockchain
     bc = Blockchain()
     
+    # add some intial values
     bc.add_value("1")
     bc.add_value("2")
     bc.add_value("3")
     
+    # print and validate
     print(bc.to_string())
-    print(bc.is_valid_blockchain())
+    print(f"IS VALID: {bc.is_valid_blockchain()}")
+    print("------------------------------")
     
+    # simlate manipulation on some block
     block = bc.blocks[1]
     block.value = 20
     
+    # print and validate
     print(bc.to_string())
-    print(bc.is_valid_blockchain())
+    print(f"IS VALID: {bc.is_valid_blockchain()}")
 
     
     
